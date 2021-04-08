@@ -37,15 +37,24 @@ class CustomImage:
         print("We need to remove {} horizontal seams and {} vertical seams to achieve a {}% reduction in image size".format(self.H_seams_left, self.V_seams_left, resize_percentage*100))
 
         # TODO : implement algorithm to determine if it's better to remove horizontal or vertical seam first
-        # while(self.H_seams_left > 0 and self.V_seams_left > 0):
-        #     self.removeHorizontalSeam()
-        #     self.removeVerticalSeam()
+        while(self.H_seams_left > 0 and self.V_seams_left > 0):
+            self.removeHorizontalSeam()
+            self.H_seams_left -= 1
+            print("{} Horizontal seams to remove".format(self.H_seams_left))
+
+            self.removeVerticalSeam()
+            self.V_seams_left -= 1
+            print("{} Vertical seams to remove".format(self.V_seams_left))
 
         while(self.H_seams_left > 0):
             self.removeHorizontalSeam()
+            self.H_seams_left -= 1
+            print("{} Horizontal seams to remove".format(self.H_seams_left))
 
-        # while(self.V_seams_left > 0):
-        #     self.removeVerticalSeam()
+        while(self.V_seams_left > 0):
+            self.removeVerticalSeam()
+            self.V_seams_left -= 1
+            print("{} Vertical seams to remove".format(self.V_seams_left))
 
         imwrite("Images/Cat_Cropped_{}.png".format(int(resize_percentage * 100)), self.image)
 
@@ -73,12 +82,21 @@ class CustomImage:
 
         self.removeFoundSeam(seam)
 
-        self.H_seams_left -= 1
+
+    def inverseHeightAndWidth(self):
+        tmp = self.width
+        self.width = self.height
+        self.height = tmp
 
 
     def removeVerticalSeam(self):
-        self.PrepareSeamRemoval()
-        self.V_seams_left -= 1
+        self.image = numpy.rot90(self.image, 1, (0, 1))
+
+        self.inverseHeightAndWidth()
+        self.removeHorizontalSeam()
+        self.inverseHeightAndWidth()
+        
+        self.image = numpy.rot90(self.image, 3, (0, 1))
 
 
     def calculateEnergyImage(self):
