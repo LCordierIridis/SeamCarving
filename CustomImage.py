@@ -30,11 +30,11 @@ class CustomImage:
         self.width, self.height = self.image_file.size
 
 
-    def reduceByPercent(self, resize_percentage):
-        self.H_seams_left = int(self.width * resize_percentage)
-        self.V_seams_left = int(self.height * resize_percentage)
+    def reduceByPercent(self, h_resize_percentage, v_resize_percentage):
+        self.H_seams_left = int(self.width * h_resize_percentage)
+        self.V_seams_left = int(self.height * v_resize_percentage)
 
-        print("We need to remove {} horizontal seams and {} vertical seams to achieve a {}% reduction in image size".format(self.H_seams_left, self.V_seams_left, resize_percentage*100))
+        print("We need to remove {} horizontal seams and {} vertical seams".format(self.H_seams_left, self.V_seams_left))
 
         # TODO : implement algorithm to determine if it's better to remove horizontal or vertical seam first
         while(self.H_seams_left > 0 and self.V_seams_left > 0):
@@ -56,7 +56,7 @@ class CustomImage:
             self.V_seams_left -= 1
             print("{} Vertical seams to remove".format(self.V_seams_left))
 
-        imwrite("Images/Cat_Cropped_{}.png".format(int(resize_percentage * 100)), self.image)
+        imwrite("Images/Cat_Cropped_{}_{}.png".format(int(h_resize_percentage * 100), int(v_resize_percentage * 100)), self.image)
 
 
     def PrepareSeamRemoval(self):
