@@ -113,8 +113,8 @@ def drawSeam(seam, image):
     image.save('Images/seam_cat.png')
 
 image = Image.open('Images/cat.png')
-customImage = CustomImage(image)
-customImage.reduceByPercent(0.01)
+customImage = CustomImage('Images/cat.png')
+customImage.reduceByPercent(0.5)
 # image_pixels = image.load()
 
 # orig_image_width, orig_image_height = image.size

@@ -29,16 +29,16 @@ def convolution(image_pixels, orig_image_width, orig_image_height, col, row):
     # print("Pixel {}:{} ----- next X : {}:{} ----- next Y : {}:{}".format(col, row, previous_col, next_col, previous_row, next_row))
 
     # Calculate horizontal color differences
-    delta_Rx = image_pixels[next_col, row][RED] - image_pixels[previous_col, row][RED]
-    delta_Gx = image_pixels[next_col, row][GREEN] - image_pixels[previous_col, row][GREEN]
-    delta_Bx = image_pixels[next_col, row][BLUE] - image_pixels[previous_col, row][BLUE]
+    delta_Rx = int(image_pixels[row][next_col][RED]) - int(image_pixels[row][previous_col][RED])
+    delta_Gx = int(image_pixels[row][next_col][GREEN]) - int(image_pixels[row][previous_col][GREEN])
+    delta_Bx = int(image_pixels[row][next_col][BLUE]) - int(image_pixels[row][previous_col][BLUE])
 
     squared_delta_x = pow(delta_Rx, 2) + pow(delta_Gx, 2) + pow(delta_Bx, 2)
 
     # Calculate vertical color differences
-    delta_Ry = image_pixels[col, next_row][RED] - image_pixels[col, previous_row][RED]
-    delta_Gy = image_pixels[col, next_row][GREEN] - image_pixels[col, previous_row][GREEN]
-    delta_By = image_pixels[col, next_row][BLUE] - image_pixels[col, previous_row][BLUE]
+    delta_Ry = int(image_pixels[next_row][col][RED]) - int(image_pixels[previous_row][col][RED])
+    delta_Gy = int(image_pixels[next_row][col][GREEN]) - int(image_pixels[previous_row][col][GREEN])
+    delta_By = int(image_pixels[next_row][col][BLUE]) - int(image_pixels[previous_row][col][BLUE])
 
     squared_delta_y = pow(delta_Ry, 2) + pow(delta_Gy, 2) + pow(delta_By, 2)
 
@@ -65,3 +65,4 @@ def get_energy_image(image):
 
     image.save('Images/energy_cat.png')
     return image_energy
+    
