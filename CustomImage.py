@@ -55,18 +55,6 @@ class CustomImage:
         self.calculateGeneralTermsTable()
 
 
-    def arrayTo2DArray(self, array, nbCol, nbRow):
-        new2DArray = []
-
-        for row in range(0, nbRow):
-            new2DArray.append([])
-
-            for col in range(0, nbCol):
-                new2DArray[row].append(array[row * nbRow + col])
-
-        return new2DArray
-
-
     def removeFoundSeam(self, seam):
         mask = numpy.ones((self.height, self.width), dtype=numpy.bool)
 
@@ -77,23 +65,6 @@ class CustomImage:
 
         self.image = self.image[mask].reshape(self.height, self.width - 1, 3)
         self.width -= 1
-
-        # image_array = self.arrayTo2DArray(image_array, self.width, self.height)
-
-        # print("seam rows : {}, array rows : {}, picture height : {}\n".format(len(seam.pixels), len(image_array), self.height))
-
-        # for row, col in enumerate(seam.pixels):
-        #     print("{} : {}".format(row, image_array[row]))
-        #     image_array[row].pop(col)
-        #     print("{} : {}\n".format(row, len(image_array[row])))
-
-        # # image_array = numpy.random.random_sample(image_array.shape) * 255
-        # # image_array = image_array.astype(numpy.uint8)
-
-        # # image_array = numpy.array(image_array)
-
-        # image = Image.fromstring fromarray((image_array * 255).astype(numpy.uint8))
-        # return image
 
 
     def removeHorizontalSeam(self):
